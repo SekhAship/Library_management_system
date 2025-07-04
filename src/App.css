@@ -1,42 +1,265 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .main-container {
+    display: flex;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  main {
+    flex: 1; /* Takes up remaining space */
+    /* display: flex; */
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    height: 100vh; /* Full height of the viewport */
+    padding: 10px;
+    overflow: hidden; /* Prevents extra scrolling */
+    transition: all 0.5s ease-in-out;
   }
-}
+  
+  
+  .title {
+    font-size: 3rem;
+    display: grid;
+    place-items: center;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    background: rgb(0, 7, 61);
+    color: white;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  .top_section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 10px;
+  }
+  .logo {
+    font-size: 18px;
+    line-height: 0;
+  }
+  .bars {
+    width: 30px;
+  }
+  .hide {
+    display: none;
+  }
+  
+  .search {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    height: 30px;
+    padding: 10px;
+    
+  }
+  .search input {
+    border: none;
+    margin-left: 10px;
+    border-radius: 5px;
+    background: rgb(238, 238, 238);
+  
+    color: black;
+  }
+  
+  .routes {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .link {
+    display: flex;
+    color: white;
+    gap: 10px;
+    padding: 5px 10px;
+    border-right: 4px solid transparent;
+    transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  }
+  .link:hover {
+    border-right: 4px solid white;
+    background: rgb(45, 51, 89);
+    transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  }
+  .active {
+    border-right: 4px solid white;
+    background: rgb(45, 51, 89);
+  }
+  .link_text {
+    white-space: nowrap;
+    font-size: 15px;
+  }
+  
+  .menu {
+    display: flex;
+    color: white;
+  
+    padding: 5px 10px;
+    border-right: 4px solid transparent;
+    transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    justify-content: space-between;
+  }
+  .menu_item {
+    display: flex;
+    gap: 10px;
+  }
+  .menu_container {
+    display: flex;
+    flex-direction: column;
+  }
+  .menu_container .link {
+    padding-left: 20px;
+    border-bottom: #fff 0.5px solid;
+  }
 
-.card {
-  padding: 2em;
+  .add-book-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
 }
-
-.read-the-docs {
-  color: #888;
-}
+  
+  .add-book-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 600px;
+  }
+  
+  .add-book-form input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .add-book-form button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .add-book-form button:hover {
+    background-color: #0056b3;
+  }
+  .student-list-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .student-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .student-table th, .student-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .student-table th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .delete-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .delete-btn:hover {
+    background-color: darkred;
+  }
+  .issue-book-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .issue-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .issue-form label {
+    font-weight: bold;
+  }
+  
+  .issue-form select, .issue-form input {
+    width: 300px;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .issue-btn {
+    margin-top: 10px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .issue-btn:hover {
+    background-color: #0056b3;
+  }
+  .add-student-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .add-student-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .add-student-form label {
+    font-weight: bold;
+  }
+  
+  .add-student-form input {
+    width: 300px;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .add-btn {
+    margin-top: 10px;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .add-btn:hover {
+    background-color: #218838;
+  }
+      
+  .delete-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
