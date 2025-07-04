@@ -58,9 +58,7 @@ export default function Login({ toggleAuth }) {
             navigate("/admin");
           }
   
-          setTimeout(() => {
-            window.location.reload(); 
-          },);
+          
         } else {
           toast.error("No user data found");
           setLoading(false);
