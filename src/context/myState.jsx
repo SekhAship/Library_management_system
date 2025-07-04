@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
 import MyContext from './myContext';
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
-import { fireDB } from '../firebase/firebaseConfig';
 
 function MyState({ children }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
