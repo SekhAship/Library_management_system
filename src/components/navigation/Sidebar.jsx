@@ -1,171 +1,86 @@
 import { NavLink } from "react-router-dom";
-import { FaBars, FaHome, FaLock, FaMoneyBill, FaUser } from "react-icons/fa";
+import { FaBars, FaHome, FaLock, FaUser } from "react-icons/fa";
 import { MdMessage } from "react-icons/md";
-import { BiAnalyse, BiSearch } from "react-icons/bi";
-import { BiCog } from "react-icons/bi";
-import { AiFillHeart, AiTwotoneFileExclamation } from "react-icons/ai";
+import { BiAnalyse, BiCog } from "react-icons/bi";
 import { BsCartCheck } from "react-icons/bs";
-import { useContext, useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./SidebarMenu";
-import myContext from "../../context/myContext";
+import MyContext from "../../context/myContext";
 
+// Shared settings route
+const settingsRoute = {
+  path: "/settings",
+  name: "Settings",
+  icon: <BiCog />,
+  subRoutes: [
+    {
+      path: "/settings/profile",
+      name: "Profile",
+      icon: <FaUser />,
+    },
+    {
+      path: "/settings/logout",
+      name: "Logout",
+      icon: <FaLock />,
+    },
+  ],
+};
 
-
-// const { user } = useContext(myContext);
-const user = JSON.parse(localStorage.getItem('user')) || { role: "" };
-
-const routes = [
-  {
-    path: "/dashboard",
-    name: "Book List",
-    icon: <FaHome />,
-  },
-
-  ...(user.role === "admin"
-    ? [
-      {
-        path: "/addTeacher",
-        name: "Add Teacher",
-        icon: <MdMessage />,
-      },
-    ]
-    : []),
-
-
-  ...(user.role === "librarian"
-    ? [
-      {
-        path: "/addBook",
-        name: "Add Book",
-        icon: <MdMessage />,
-      },
-    ]
-    : []),
-
-  {
-    path: "/studentList",
-    name: "Student List",
-    icon: <FaUser />,
-
-  },
-  /////
-  ...(user.role === "admin"
-    ? [
-      {
-        path: "/teacherList",
-        name: "Teacher List",
-        icon: <FaUser />,
-      },
-    ]
-    : []),
-
-
-
-  ...(user.role === "librarian"
-    ? [
-      {
-        path: "/issueBook",
-        name: "Issue Book",
-        icon: <BiAnalyse />,
-      },
-    ]
-    : []),
-  ...(user.role === "librarian"
-    ? [
-      {
-        path: "/returnBook",
-        name: "Return Book",
-        icon: <BiAnalyse />,
-      },
-    ]
-    : []),
-
-
-  ...(user.role === "librarian"
-    ? [
-      {
-        path: "/analytics",
-        name: "Student Analytics",
-        icon: <BsCartCheck />,
-      },
-    ]
-    : []),
-  ...(user.role === "user"
-    ? [
-      {
-        path: "/studentActivity",
-        name: "Student Activity",
-        icon: <BsCartCheck />,
-      },
-    ]
-    : []),
-  //studentActivity
-  {
-    path: "/settings",
-    name: "Settings",
-    icon: <BiCog />,
-    exact: true,
-    subRoutes: [
-      {
-        path: "/settings/profile",
-        name: "Profile ",
-        icon: <FaUser />,
-      },
-      {
-        path: "/settings/logout",
-        name: "Logout",
-        icon: <FaLock />,
-      },
-    ],
-  },
-  ...(user.role != "user"
-    ? [
-      {
-        path: "/analytics",
-        name: "Saved",
-        icon: <AiFillHeart />,
-      },
-    ]
-    : []),
-  
-];
+// Role-based route definitions
+const roleBasedRoutes = {
+  admin: [
+    { path: "/dashboard", name: "Dashboard", icon: <FaHome /> },
+    { path: "/addTeacher", name: "Add Teacher", icon: <MdMessage /> },
+    { path: "/addBook", name: "Add Book", icon: <MdMessage /> },
+    { path: "/studentList", name: "Student List", icon: <FaUser /> },
+    { path: "/teacherList", name: "Teacher List", icon: <FaUser /> },
+    { path: "/analytics", name: "Analytics", icon: <BsCartCheck /> },
+    settingsRoute,
+  ],
+  librarian: [
+    { path: "/dashboard", name: "Dashboard", icon: <FaHome /> },
+    { path: "/addBook", name: "Add Book", icon: <MdMessage /> },
+    { path: "/studentList", name: "Student List", icon: <FaUser /> },
+    { path: "/issueBook", name: "Issue Book", icon: <BiAnalyse /> },
+    { path: "/returnBook", name: "Return Book", icon: <BiAnalyse /> },
+    { path: "/analytics", name: "Analytics", icon: <BsCartCheck /> },
+    settingsRoute,
+  ],
+  user: [
+    { path: "/dashboard", name: "Dashboard", icon: <FaHome /> },
+    { path: "/studentActivity", name: "Student Activity", icon: <BsCartCheck /> },
+    settingsRoute,
+  ],
+};
 
 const SideBar = ({ children }) => {
-  console.log()
+  const { isAuthenticated } = useContext(MyContext);
+  const [user, setUser] = useState({ role: "" });
   const [isOpen, setIsOpen] = useState(false);
+
+  // Dynamically update user from localStorage
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, [isAuthenticated]);
+
+  const routes = roleBasedRoutes[user.role] || [];
+
   const toggle = () => setIsOpen(!isOpen);
-  const inputAnimation = {
-    hidden: {
-      width: 0,
-      padding: 0,
-      transition: {
-        duration: 0.2,
-      },
-    },
-    show: {
-      width: "140px",
-      padding: "5px 15px",
-      transition: {
-        duration: 0.2,
-      },
-    },
-  };
 
   const showAnimation = {
     hidden: {
       width: 0,
       opacity: 0,
-      transition: {
-        duration: 0.5,
-      },
+      transition: { duration: 0.5 },
     },
     show: {
       opacity: 1,
       width: "auto",
-      transition: {
-        duration: 0.5,
-      },
+      transition: { duration: 0.5 },
     },
   };
 
@@ -175,14 +90,13 @@ const SideBar = ({ children }) => {
         <motion.div
           animate={{
             width: isOpen ? "200px" : "45px",
-
             transition: {
               duration: 0.5,
               type: "spring",
               damping: 10,
             },
           }}
-          className={`sidebar `}
+          className="sidebar"
         >
           <div className="top_section">
             <AnimatePresence>
@@ -198,31 +112,26 @@ const SideBar = ({ children }) => {
                 </motion.h1>
               )}
             </AnimatePresence>
-
             <div className="bars">
               <FaBars onClick={toggle} />
             </div>
           </div>
 
           <section className="routes">
-            {routes.map((route, index) => {
-              if (route.subRoutes) {
-                return (
-                  <SidebarMenu
-                    key={index}
-                    setIsOpen={setIsOpen}
-                    route={route}
-                    showAnimation={showAnimation}
-                    isOpen={isOpen}
-                  />
-                );
-              }
-
-              return (
+            {routes.map((route, index) =>
+              route.subRoutes ? (
+                <SidebarMenu
+                  key={index}
+                  setIsOpen={setIsOpen}
+                  route={route}
+                  showAnimation={showAnimation}
+                  isOpen={isOpen}
+                />
+              ) : (
                 <NavLink
                   to={route.path}
                   key={index}
-                  className={({ isActive }) => (isActive ? "link active" : "link")} // ✅ Fixed
+                  className={({ isActive }) => (isActive ? "link active" : "link")}
                 >
                   <div className="icon">{route.icon}</div>
                   <AnimatePresence>
@@ -239,8 +148,8 @@ const SideBar = ({ children }) => {
                     )}
                   </AnimatePresence>
                 </NavLink>
-              );
-            })}
+              )
+            )}
           </section>
         </motion.div>
 
