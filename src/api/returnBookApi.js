@@ -1,5 +1,5 @@
 import { collection, query, where, getDocs, doc, updateDoc } from "firebase/firestore";
-import { fireDB } from "../firebase/firebaseConfig";
+import { fireDB } from "../firebase/firebaseConfig.js";
 
 // Fetch book details by ISBN (only if not returned)
 export const fetchIssuedBookByISBN = async (isbn) => {

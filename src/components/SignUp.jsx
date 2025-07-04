@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { auth, fireDB } from "../firebase/firebaseConfig";
+import { auth, fireDB } from "../firebase/firebaseConfig.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";

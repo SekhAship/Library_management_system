@@ -93,7 +93,7 @@ import React from "react";
 import { Modal, Form, Input, Select, Button, message } from "antd";
 import { addDoc, collection } from "firebase/firestore";
 import toast from "react-hot-toast";
-import { fireDB } from "../../firebase/firebaseConfig";
+import { fireDB } from "../../firebase/firebaseConfig.js";
 
 // import { db, collection, addDoc } from "../firebaseConfig";
 

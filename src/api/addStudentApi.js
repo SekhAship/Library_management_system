@@ -1,5 +1,5 @@
 import { collection, addDoc } from "firebase/firestore";
-import { fireDB } from "../firebase/firebaseConfig";
+import { fireDB } from "../firebase/firebaseConfig.js";
 
 // Add a student
 export const addStudent = async (name, email, department, collegeId) => {

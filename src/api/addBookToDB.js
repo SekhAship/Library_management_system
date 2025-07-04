@@ -1,6 +1,6 @@
 import { collection, addDoc } from 'firebase/firestore';
 import { toast } from 'react-hot-toast';
-import { fireDB } from '../firebase/firebaseConfig';
+import { fireDB } from '../firebase/firebaseConfig.js';
 
 export const addBookToDB = async (product, setLoading) => {
     if (

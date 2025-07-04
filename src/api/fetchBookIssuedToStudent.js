@@ -1,5 +1,5 @@
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { fireDB } from "../firebase/firebaseConfig";
+import { fireDB } from "../firebase/firebaseConfig.js";
 
 export const fetchUserDataById = async (userName) => {
   try {

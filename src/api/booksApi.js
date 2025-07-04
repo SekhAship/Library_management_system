@@ -1,5 +1,5 @@
 import { collection, getDocs, doc, deleteDoc, updateDoc } from 'firebase/firestore';
-import { fireDB } from '../firebase/firebaseConfig';
+import { fireDB } from '../firebase/firebaseConfig.js';
 
 // Get Books
 export const getBooks = async () => {

@@ -1,6 +1,6 @@
 import { collection, addDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, fireDB } from "../firebase/firebaseConfig";
+import { auth, fireDB } from "../firebase/firebaseConfig.js";
 
 // Add a new teacher to Firebase Auth and Firestore
 export const addTeacher = async (name, email, phoneNumber, address, role) => {

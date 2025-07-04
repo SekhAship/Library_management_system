@@ -1,5 +1,5 @@
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
-import { fireDB } from "../firebase/firebaseConfig";
+import { fireDB } from "../firebase/firebaseConfig.js";
 
 // Fetch all teachers
 export const fetchTeachers = async () => { 
