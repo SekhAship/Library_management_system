@@ -14,7 +14,7 @@ export const getBooks = async () => {
   } catch (error) {
     console.error("Error fetching books:", error);
     throw new Error("Error while getting list of books");
-  }
+  } 
 };
 
 // Delete Book
